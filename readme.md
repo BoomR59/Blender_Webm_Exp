@@ -16,7 +16,9 @@ BWE adds a panel in the 3d view's Properties panel ( the right side one) that al
 
 This addon *currently* assumes you are rendering png's with "%4d.png" naming convention aka 0001.png, 0002.png, 0003.png etc.  
 
-Choose the parameters you like and click Render. Blender will act as if it is "unresponsive" but it is actually rendering your frames. I highly recommend having the Blender Console Window open to view progress.
+
+
+Inititialize the variables first, then choose the parameters you like and click render webm. Blender will act as if it is "unresponsive" but it is actually rendering your frames. I highly recommend having the Blender Console Window open to view progress.
 
 
 ## License

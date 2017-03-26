@@ -3,7 +3,7 @@ bl_info = {
     "name": "WEBM Exporter",
     "description": "Converts exported image sequences to webms.",
     "author": "BoomR59",
-    "version": (1, 1),
+    "version": (1, 0),
     "blender": (2, 65, 0),
     "location": "View3D > Properties Menu",
     "warning": "", # used for warning icon and text in addons panel
@@ -64,7 +64,7 @@ class UIPanel(bpy.types.Panel):
             layout.prop(scn, 'exportPath')            
             layout.prop(scn, 'BitInt')
 
-         
+        layout.operator(InitMyPropOperator.bl_idname, text=InitMyPropOperator.bl_label)    
 
         
         button = self.layout.operator("webm.rend", text='Render Webm')
@@ -77,7 +77,7 @@ class UIPanel(bpy.types.Panel):
 class InitMyPropOperator(bpy.types.Operator):
     """Tooltip"""
     bl_idname = "scene.init_my_prop"
-    bl_label = "Init my_prop"
+    bl_label = "Initialize Variables"
  
     @classmethod
     def poll(cls, context):
@@ -86,7 +86,7 @@ class InitMyPropOperator(bpy.types.Operator):
     def execute(self, context):
         if context.scene.ffmpegPath != "C:\\ffmpeg\\bin\\ffmpeg.exe":
 
-            self.__class__.bl_label = "Change my_prop"
+            self.__class__.bl_label = "Change Variables"
         else:
             var = context.scene['ffmpegPath'] = "C:\\ffmpeg\\bin\\ffmpeg.exe"
             var2 = context.scene['BitInt'] = 10200 
@@ -132,7 +132,6 @@ class OBJECT_OT_ExportWebmButton(bpy.types.Operator):
         print("The ffmpeg file url is")
         print(ffmpegPath)
         print("**********")
-        #frame filename format assuming "0001.png"
         imgNamePattern = "%04d.png"
         vidOut = fileNameURL + ".webm"
 
@@ -145,7 +144,7 @@ class OBJECT_OT_ExportWebmButton(bpy.types.Operator):
         ffmCMD += "-start_number "+ startFrame + " -i " 
         ffmCMD += imgPath + '\\' + imgNamePattern + " "
         ffmCMD += "-vframes " + endFrame + " "
-        ffmCMD += "-vframes 84 -auto-alt-ref 0 "
+        ffmCMD += "-auto-alt-ref 0 "
         ffmCMD += "-c:v" + vCodec + " -an -crf 32 "
         ffmCMD += "-maxrate: " +str(bitrate)+"K"+" -minrate "+str(bitrate)+"K"+" -b:v "+str(bitrate)+"K"+" "
         ffmCMD += "-threads 8 -quality best -lag-in-frames 16 -y "
